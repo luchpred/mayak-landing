@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Родник — корпоративный мозг выручки</title>
+<meta name="description" content="Родник ставит корпоративный мозг выручки: общий контекст продаж, агенты на вашей воронке и доказанный прирост. Остаётся у вашей команды.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f4f6;
+    --bg2: #ebecef;
+    --panel: #ffffff;
+    --ink: #0c0d10;
+    --mute: #5c6170;
+    --soft: #8a90a0;
+    --line: rgba(12, 13, 16, 0.1);
+    --line2: rgba(12, 13, 16, 0.18);
+    --blue: #1a4fff;
+    --blue-ink: #1238c9;
+    --blue-soft: #e8eeff;
+    --ok: #1f7a4c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Schibsted Grotesk", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1100px 520px at 8% -8%, #dce5ff 0%, transparent 55%),
+      radial-gradient(900px 480px at 100% 0%, #e8e9ee 0%, transparent 50%),
+      linear-gradient(180deg, #f7f8fa 0%, var(--bg) 40%, #eef0f4 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
+  .serif { font-family: "Instrument Serif", "Times New Roman", Georgia, serif; font-weight: 400; letter-spacing: -0.03em; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--blue);
+  }
+  .eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+    box-shadow: 0 0 0 0 rgba(26,79,255,.45); animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(26,79,255,.4); }
+    70% { box-shadow: 0 0 0 10px rgba(26,79,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(26,79,255,0); }
+  }
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(14px);
+    background: rgba(247,248,250,.82);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 64px; gap: 1rem;
+  }
+  .logo {
+    font-weight: 800; font-size: 1.05rem; letter-spacing: -0.04em;
+  }
+  .nav-links { display: none; gap: 1.4rem; color: var(--mute); font-size: 13px; font-weight: 500; }
+  .nav-links a:hover { color: var(--ink); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+    border: 1px solid var(--ink); background: var(--ink); color: #fff;
+    padding: .85rem 1.15rem; font-size: 13px; font-weight: 600;
+    transition: transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+  .btn-blue { background: var(--blue); border-color: var(--blue); }
+  .btn-blue:hover { background: var(--blue-ink); border-color: var(--blue-ink); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 64px);
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(180deg, transparent 35%, rgba(243,244,246,.92) 78%, var(--bg) 100%),
+      radial-gradient(ellipse 80% 55% at 70% 40%, rgba(26,79,255,.12), transparent 60%),
+      repeating-linear-gradient(90deg, transparent 0 47px, rgba(12,13,16,.035) 47px 48px),
+      repeating-linear-gradient(0deg, transparent 0 47px, rgba(12,13,16,.035) 47px 48px);
+  }
+  .hero-visual {
+    position: absolute; inset: 0;
+    opacity: .95;
+  }
+  .hero-visual svg { width: 100%; height: 100%; display: block; }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: clamp(4rem, 12vh, 7rem) 0 clamp(3rem, 8vh, 5rem);
+    max-width: 720px;
+    animation: rise .9s ease both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  .brand-mark {
+    font-family: "Instrument Serif", "Times New Roman", Georgia, serif;
+    font-size: clamp(3.4rem, 9vw, 6.4rem);
+    line-height: .92;
+    letter-spacing: -0.04em;
+    margin: .7rem 0 1rem;
+  }
+  .hero h1 {
+    margin: 0;
+    font-family: "Instrument Serif", "Times New Roman", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.8vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    max-width: 18ch;
+  }
+  .hero h1 em { font-style: italic; color: var(--blue-ink); }
+  .hero-lead {
+    margin: 1.25rem 0 0;
+    max-width: 46ch;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--mute);
+  }
+  .hero-lead strong { color: var(--ink); font-weight: 600; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+
+  section { padding: clamp(4.5rem, 9vw, 7rem) 0; border-bottom: 1px solid var(--line); }
+  .sec-label { margin-bottom: 1rem; color: var(--soft); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .sec-title {
+    margin: 0;
+    font-family: "Instrument Serif", "Times New Roman", Georgia, serif;
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+  }
+  .sec-title em { font-style: italic; color: var(--blue-ink); }
+  .sec-lead { margin: 1rem 0 0; max-width: 54ch; color: var(--mute); font-size: 1.05rem; line-height: 1.6; }
+
+  /* GAP CHART */
+  .gap-grid {
+    display: grid; gap: 2rem; margin-top: 2.75rem;
+    grid-template-columns: 1.1fr .9fr;
+  }
+  @media (max-width: 860px) {
+    .nav-links { display: none !important; }
+    .gap-grid, .anatomy-grid, .phase-grid, .op-grid, .ready-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (min-width: 860px) { .nav-links { display: flex; } }
+  .chart {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 1.25rem 1.25rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .chart-legend {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    margin-top: .85rem; font-size: 12px; color: var(--mute);
+  }
+  .chart-legend i { display: inline-block; width: 18px; height: 3px; margin-right: .4rem; vertical-align: middle; }
+  .dot-flat { background: #9aa0ad; }
+  .dot-up { background: var(--blue); }
+  .milestones { display: grid; gap: .85rem; }
+  .milestone {
+    border-left: 2px solid var(--line2);
+    padding: .15rem 0 .15rem 1rem;
+  }
+  .milestone strong { display: block; font-size: 14px; margin-bottom: .2rem; }
+  .milestone span { color: var(--mute); font-size: 13px; line-height: 1.45; }
+  .milestone:hover { border-left-color: var(--blue); }
+
+  /* ANATOMY */
+  .anatomy-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem;
+  }
+  .deliverable {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 1.6rem 1.5rem 1.7rem;
+    min-height: 100%;
+  }
+  .deliverable .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue);
+  }
+  .deliverable h3 {
+    font-family: "Instrument Serif", "Times New Roman", Georgia, serif;
+    font-size: 1.85rem; margin: .7rem 0 .8rem; letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .deliverable p { margin: 0; color: var(--mute); line-height: 1.55; font-size: .98rem; }
+  .deliverable ul { margin: 1.1rem 0 0; padding: 0; list-style: none; }
+  .deliverable li {
+    position: relative; padding: .45rem 0 .45rem 1.1rem;
+    border-top: 1px solid var(--line); font-size: 14px; line-height: 1.45;
+  }
+  .deliverable li::before {
+    content: ""; position: absolute; left: 0; top: .95rem;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+  }
+  .stack-rail {
+    margin-top: 1rem;
+    display: flex; flex-wrap: wrap; gap: .45rem;
+  }
+  .stack-rail span {
+    border: 1px solid var(--line); background: #f7f8fa;
+    padding: .35rem .65rem; font-size: 12px; color: var(--mute); font-weight: 500;
+  }
+
+  /* PHASES */
+  .phase-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem;
+  }
+  .phase {
+    background: var(--panel); border: 1px solid var(--line); padding: 1.4rem 1.25rem 1.5rem;
+  }
+  .phase .n { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); }
+  .phase h3 {
+    font-family: "Instrument Serif", "Times New Roman", Georgia, serif;
+    font-size: 1.7rem; margin: .65rem 0 .5rem; letter-spacing: -0.03em;
+  }
+  .phase p { margin: 0; color: var(--mute); font-size: 14px; line-height: 1.55; }
+  .phase .out {
+    margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--line);
+    font-size: 13px; line-height: 1.5;
+  }
+  .phase .out b { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-bottom: .35rem; font-weight: 700; }
+
+  /* AGENTS */
+  .agents-strip {
+    margin-top: 2.2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 720px) { .agents-strip { grid-template-columns: 1fr; } }
+  .agent-cell {
+    background: var(--panel);
+    padding: 1.15rem 1.1rem;
+  }
+  .agent-cell .who { font-weight: 700; font-size: 15px; }
+  .agent-cell .what { margin-top: .3rem; color: var(--mute); font-size: 13px; line-height: 1.4; }
+  .agent-cell .num { font-size: 11px; font-weight: 700; color: var(--soft); letter-spacing: .1em; }
+
+  /* OPERATOR */
+  .op-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem;
+  }
+  @media (max-width: 980px) { .op-grid { grid-template-columns: 1fr 1fr; } }
+  .op {
+    border-top: 2px solid var(--ink);
+    padding-top: 1rem;
+  }
+  .op .n { font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: .08em; }
+  .op h3 { margin: .45rem 0 .5rem; font-size: 1.05rem; letter-spacing: -0.02em; }
+  .op p { margin: 0; color: var(--mute); font-size: 13.5px; line-height: 1.5; }
+
+  /* READY */
+  .ready {
+    background: var(--ink);
+    color: #f4f5f7;
+    border-bottom: 0;
+  }
+  .ready .sec-title { color: #fff; max-width: 16ch; }
+  .ready .sec-title em { color: #9db4ff; }
+  .ready .sec-lead { color: rgba(244,245,247,.68); }
+  .ready-grid {
+    display: grid; grid-template-columns: 1fr .95fr; gap: 1.5rem; margin-top: 2.5rem; align-items: start;
+  }
+  .ready-points { display: grid; gap: .9rem; }
+  .ready-points div {
+    border: 1px solid rgba(255,255,255,.12);
+    padding: 1rem 1.1rem;
+  }
+  .ready-points b { display: block; margin-bottom: .25rem; font-size: 14px; }
+  .ready-points span { color: rgba(244,245,247,.62); font-size: 13.5px; line-height: 1.45; }
+  .form-card {
+    background: #fff; color: var(--ink);
+    border: 1px solid transparent;
+    padding: 1.5rem 1.35rem 1.4rem;
+  }
+  .form-card h3 {
+    font-family: "Instrument Serif", "Times New Roman", Georgia, serif;
+    font-size: 1.8rem; margin: 0 0 .4rem; letter-spacing: -0.03em;
+  }
+  .form-card > p { margin: 0 0 1.1rem; color: var(--mute); font-size: 14px; line-height: 1.5; }
+  .form-card label {
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--soft); margin-bottom: .4rem;
+  }
+  .form-card input {
+    width: 100%; border: 1px solid var(--line2); background: #f7f8fa;
+    padding: .75rem .8rem; font: inherit; font-size: 14px; color: var(--ink); outline: none;
+  }
+  .form-card input:focus { border-color: var(--blue); background: #fff; }
+  .fields { display: grid; gap: .75rem; }
+  .fields-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  @media (max-width: 520px) { .fields-2 { grid-template-columns: 1fr; } }
+  .messengers { display: flex; gap: .5rem; }
+  .messenger-btn {
+    flex: 1; border: 1px solid var(--line2); background: #fff; color: var(--mute);
+    padding: .7rem; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .messenger-btn.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .form-note { margin: .75rem 0 0; font-size: 11.5px; color: var(--soft); line-height: 1.5; }
+  .form-note a { color: var(--blue-ink); text-decoration: underline; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 1.25rem 0 2rem;
+    color: var(--soft);
+    font-size: 12px;
+  }
+  .foot-inner {
+    display: flex; flex-wrap: wrap; gap: .8rem 1.5rem;
+    align-items: center; justify-content: space-between;
+  }
+  footer a:hover { color: var(--ink); }
+
+  .line-draw { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 2.4s ease forwards .3s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .fade-up { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+  .fade-up.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">Родник</a>
+    <nav class="nav-links" aria-label="Разделы">
+      <a href="#gap">Разрыв</a>
+      <a href="#anatomy">Анатомия</a>
+      <a href="#install">Установка</a>
+      <a href="#agents">Агенты</a>
+      <a href="#operator">Оператор</a>
+    </nav>
+    <a href="#contact" class="btn btn-blue">Начать установку →</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-bottom:1px solid var(--line); padding:0;">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a4fff" stop-opacity=".22"/>
+            <stop offset="100%" stop-color="#1a4fff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="#1a4fff" stroke-opacity=".18" stroke-width="1.2">
+          <ellipse cx="980" cy="380" rx="260" ry="160"/>
+          <ellipse cx="980" cy="380" rx="200" ry="120"/>
+          <ellipse cx="980" cy="380" rx="140" ry="80"/>
+          <circle cx="980" cy="380" r="10" fill="#1a4fff" fill-opacity=".35" stroke="none"/>
+        </g>
+        <g stroke="#0c0d10" stroke-opacity=".08" stroke-width="1">
+          <path d="M720 120 L980 300"/>
+          <path d="M1180 140 L1040 300"/>
+          <path d="M1280 420 L1120 400"/>
+          <path d="M1200 620 L1040 460"/>
+          <path d="M760 680 L900 480"/>
+          <path d="M620 420 L840 400"/>
+        </g>
+        <circle cx="720" cy="120" r="4" fill="#0c0d10" fill-opacity=".25"/>
+        <circle cx="1180" cy="140" r="4" fill="#0c0d10" fill-opacity=".25"/>
+        <circle cx="1280" cy="420" r="4" fill="#0c0d10" fill-opacity=".25"/>
+        <circle cx="1200" cy="620" r="4" fill="#0c0d10" fill-opacity=".25"/>
+        <circle cx="760" cy="680" r="4" fill="#0c0d10" fill-opacity=".25"/>
+        <circle cx="620" cy="420" r="4" fill="#0c0d10" fill-opacity=".25"/>
+        <rect x="0" y="0" width="1440" height="900" fill="url(#g1)"/>
+      </svg>
+    </div>
+    <div class="wrap hero-content">
+      <div class="eyebrow">Корпоративный интеллект · остаётся у вас</div>
+      <div class="brand-mark">Родник</div>
+      <h1>Станьте AI-first компанией<br>с&nbsp;<em>мозгом выручки</em></h1>
+      <p class="hero-lead">
+        У команды есть ChatGPT. У компании — ничего.
+        Мы ставим общий контур: разрозненный ИИ становится
+        <strong>институциональным интеллектом продаж</strong> — и остаётся у вас.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-blue">Начать установку →</a>
+        <a href="#anatomy" class="btn btn-ghost">Что устанавливается</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 GAP -->
+  <section id="gap">
+    <div class="wrap">
+      <div class="sec-label">Раздел 01 · Разрыв</div>
+      <h2 class="sec-title fade-up">У команды есть ИИ.<br>У компании — <em>разрозненный контекст</em>.</h2>
+      <p class="sec-lead fade-up">Знания живут в Slack, почте, CRM-заметках и головах менеджеров. Каждый заново открывает то, что компания уже знает. Те, кто уходит вперёд, строят институциональный интеллект — не коллекцию чатов.</p>
+
+      <div class="gap-grid fade-up">
+        <div class="chart">
+          <svg viewBox="0 0 640 320" role="img" aria-label="Разрозненный контекст против корпоративного мозга">
+            <text x="24" y="28" fill="#8a90a0" font-size="12" font-family="Schibsted Grotesk,sans-serif">Накопленный интеллект компании</text>
+            <!-- grid -->
+            <g stroke="#0c0d10" stroke-opacity=".06">
+              <line x1="40" y1="60" x2="40" y2="270"/>
+              <line x1="40" y1="270" x2="600" y2="270"/>
+              <line x1="40" y1="210" x2="600" y2="210"/>
+              <line x1="40" y1="150" x2="600" y2="150"/>
+              <line x1="40" y1="90" x2="600" y2="90"/>
+            </g>
+            <!-- flat scattered -->
+            <path d="M40 248 C 140 246, 220 250, 320 244 S 500 252, 600 246" fill="none" stroke="#9aa0ad" stroke-width="2.5" stroke-dasharray="5 6"/>
+            <!-- compounding brain -->
+            <path class="line-draw" d="M40 248 C 120 246, 180 230, 240 200 S 340 120, 420 95 S 520 70, 600 48" fill="none" stroke="#1a4fff" stroke-width="3"/>
+            <circle cx="240" cy="200" r="4" fill="#1a4fff"/>
+            <circle cx="420" cy="95" r="4" fill="#1a4fff"/>
+            <circle cx="600" cy="48" r="4" fill="#1a4fff"/>
+            <g fill="#8a90a0" font-size="11" font-family="Schibsted Grotesk,sans-serif">
+              <text x="40" y="292">Старт</text>
+              <text x="210" y="292">День 14</text>
+              <text x="360" y="292">Месяц 3</text>
+              <text x="520" y="292">Год 1</text>
+            </g>
+          </svg>
+          <div class="chart-legend">
+            <span><i class="dot-flat"></i>Разрозненный контекст</span>
+            <span><i class="dot-up"></i>Корпоративный мозг выручки</span>
+          </div>
+        </div>
+        <div class="milestones">
+          <div class="milestone"><strong>День 14</strong><span>Контекст, память и первые агенты установлены. Система на ваших данных.</span></div>
+          <div class="milestone"><strong>Месяц 1</strong><span>Решения и исходы сделок пишутся обратно. Выходы начинают компаундить.</span></div>
+          <div class="milestone"><strong>Месяц 3</strong><span>Плейбук начинает работать сам: внимание команды — на деньги, которые закрываются.</span></div>
+          <div class="milestone"><strong>Месяц 6+</strong><span>Интеллект компании сильнее любого отдельного менеджера или чата с ИИ.</span></div>
+        </div>
+      </div>
+      <p class="sec-lead" style="margin-top:1.75rem">Разрозненный контекст остаётся плоским. Корпоративный мозг растёт. Разрыв увеличивается каждый месяц.</p>
+    </div>
+  </section>
+
+  <!-- 02 ANATOMY -->
+  <section id="anatomy">
+    <div class="wrap">
+      <div class="sec-label">Раздел 02 · Что устанавливается</div>
+      <h2 class="sec-title fade-up">Анатомия операционной системы <em>мозга выручки</em>.</h2>
+      <p class="sec-lead fade-up">Два результата установки. Рабочий корпоративный мозг, встроенный в ваш стек, и доказательные контуры на нём. С первого дня передачи — ownership у вашей команды.</p>
+
+      <div class="stack-rail fade-up" style="margin-top:1.5rem">
+        <span>Звонки</span><span>CRM</span><span>Почта</span><span>Календарь</span><span>Реклама</span><span>Документы</span><span>+ ваше</span>
+      </div>
+
+      <div class="anatomy-grid fade-up">
+        <article class="deliverable">
+          <div class="tag">Результат 01 · контекст · queryable · ваш</div>
+          <h3>Рабочий корпоративный мозг.</h3>
+          <p>Каждое взаимодействие ИИ в продажах читает из одного места: история клиента, скрипты, голос бренда, коммерческие правила, исходы сделок. То, что раньше жило в десяти головах — доступно каждому человеку и каждому агенту. Подключается к стеку, ничего не ломая.</p>
+          <ul>
+            <li>Один источник правды для AI и команды</li>
+            <li>Автозагрузка из звонков, писем и CRM</li>
+            <li>Связь с вашей воронкой и телефонией</li>
+            <li>На передаче: оператор обучен развивать мозг</li>
+          </ul>
+        </article>
+        <article class="deliverable">
+          <div class="tag">Результат 02 · агенты · автономно · шаблон дальше</div>
+          <h3>Доказательные контуры на мозге.</h3>
+          <p>На второй неделе — рабочие агенты на ваших реальных процессах: встреча → CRM → фокус дня → контроль маржи. Они крутятся без промпта и становятся шаблоном, по которому ваш оператор собирает следующие десять контуров уже без нас.</p>
+          <ul>
+            <li>Звонок → резюме, задачи, черновик КП</li>
+            <li>CRM = правда покупателя, не фантазия менеджера</li>
+            <li>Топ-сделки дня и прогноз закрытия в ₽</li>
+            <li>Holdout: масштабируем только доказанное</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 INSTALL -->
+  <section id="install">
+    <div class="wrap">
+      <div class="sec-label">Раздел 03 · Установка</div>
+      <h2 class="sec-title fade-up">Три фазы. Две недели.<br><em>Одна передача.</em></h2>
+      <p class="sec-lead fade-up">Каждый проект идёт по одному плейбуку. К дню 14 система жива, первые контуры крутятся, внутренний оператор владеет мозгом — нас в комнате уже нет.</p>
+
+      <div class="phase-grid fade-up">
+        <article class="phase">
+          <div class="n">Фаза 01 · Дни 1–4</div>
+          <h3>Discovery</h3>
+          <p>Живые сессии у экрана. Смотрим, как бизнес реально бежит — не как написано в регламентах. Настоящие handoff'ы между людьми и системами.</p>
+          <div class="out"><b>На выходе</b>Операционная карта. Два первых контура зафиксированы и согласованы.</div>
+        </article>
+        <article class="phase">
+          <div class="n">Фаза 02 · Дни 5–10</div>
+          <h3>Brain setup</h3>
+          <p>Собираем мозг: структура знаний, память сделок, коннекторы к CRM и звонкам. Субстрат, на котором будут жить все следующие агенты.</p>
+          <div class="out"><b>На выходе</b>Центральный слой контекста заполнен и подключён к стеку.</div>
+        </article>
+        <article class="phase">
+          <div class="n">Фаза 03 · Дни 11–14</div>
+          <h3>Proof + handoff</h3>
+          <p>Запускаем доказательные агенты на ваших данных. Воркшоп с командой. Оператор обучен паттернам расширения — команда продолжает без нас.</p>
+          <div class="out"><b>На выходе</b>Контуры в проде. Система полностью принадлежит вам.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 AGENTS -->
+  <section id="agents">
+    <div class="wrap">
+      <div class="sec-label">Раздел 04 · Команда агентов</div>
+      <h2 class="sec-title fade-up">Девять исполнителей.<br>Один <em>оркестратор</em>.</h2>
+      <p class="sec-lead fade-up">Родник — не чат и не дашборд. Это офис выручки: каждый агент сдаёт конкретный артефакт. Оркестратор распределяет внимание и эскалирует человеку только то, что требует решения.</p>
+
+      <div class="agents-strip fade-up">
+        <div class="agent-cell"><div class="num">01</div><div class="who">Лина</div><div class="what">Резюме, задачи CRM и черновик КП за час после звонка</div></div>
+        <div class="agent-cell"><div class="num">02</div><div class="who">Вера</div><div class="what">Карточка CRM = правда из разговора с покупателем</div></div>
+        <div class="agent-cell"><div class="num">03</div><div class="who">Яков</div><div class="what">Топ-3 сделки дня и прогноз закрытия месяца в ₽</div></div>
+        <div class="agent-cell"><div class="num">04</div><div class="who">Мирон</div><div class="what">Пакет к планёрке: утечки, цитаты, кого учить</div></div>
+        <div class="agent-cell"><div class="num">05</div><div class="who">Зоя</div><div class="what">Куда переложить бюджет, чтобы было больше оплат</div></div>
+        <div class="agent-cell"><div class="num">06</div><div class="who">Глеб</div><div class="what">Стоп лишней скидки до КП и отчёт утечки маржи</div></div>
+        <div class="agent-cell"><div class="num">07</div><div class="who">Дана</div><div class="what">Кто уйдёт, кого продлить, кому допродать</div></div>
+        <div class="agent-cell"><div class="num">08</div><div class="who">Яна</div><div class="what">Ответы на возражения и бэклог продукту с $ impact</div></div>
+        <div class="agent-cell"><div class="num">09</div><div class="who">Игнат</div><div class="what">Holdout: что реально подняло выручку</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 OPERATOR -->
+  <section id="operator">
+    <div class="wrap">
+      <div class="sec-label">Раздел 05 · Оператор</div>
+      <h2 class="sec-title fade-up">Кто ведёт мозг,<br>когда <em>мы уходим</em>.</h2>
+      <p class="sec-lead fade-up">У каждой рабочей установки один общий признак: внутренний владелец. Не новая ставка full-time — несколько часов в неделю у человека, который уже в команде. Выбираем его с вами на первой неделе и учим параллельно со сборкой.</p>
+
+      <div class="op-grid fade-up">
+        <article class="op">
+          <div class="n">01</div>
+          <h3>Держит мозг актуальным</h3>
+          <p>Обновляет контекст, когда меняются продукт, прайс, процесс. Минуты в день — зато каждый выход остаётся точным.</p>
+        </article>
+        <article class="op">
+          <div class="n">02</div>
+          <h3>Запускает новые контуры</h3>
+          <p>Берёт паттерны с первых агентов и переносит на следующий workflow. Мозг растёт, потому что оператор продолжает строить.</p>
+        </article>
+        <article class="op">
+          <div class="n">03</div>
+          <h3>Онбордит команду</h3>
+          <p>Новый менеджер в день один понимает, как пользоваться мозгом. Adoption перестаёт быть проблемой руководства.</p>
+        </article>
+        <article class="op">
+          <div class="n">04</div>
+          <h3>Точка входа по ИИ</h3>
+          <p>Вопросы команды сначала к оператору — не к IT и не к CEO. Реальная роль, не «побочная нагрузка».</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- READY -->
+  <section class="ready" id="contact">
+    <div class="wrap">
+      <div class="sec-label" style="color:#9db4ff">Готово</div>
+      <h2 class="sec-title fade-up">Установите<br><em>мозг выручки</em>.</h2>
+      <p class="sec-lead fade-up">14 дней от старта до рабочей системы, которой владеет ваша команда. Один звонок — чтобы зафиксировать scope. Одна передача — чтобы вести дальше самостоятельно.</p>
+
+      <div class="ready-grid fade-up">
+        <div class="ready-points">
+          <div><b>Прямой разговор</b><span>Без воронки из семи писем. Сразу к сути: воронка, стек, где теряются деньги.</span></div>
+          <div><b>На ваших данных</b><span>Показываем эффект на реальных звонках и CRM — не на демо-сказке.</span></div>
+          <div><b>Ownership с дня передачи</b><span>Мозг и агенты остаются у вас. Мы не становимся вечным «ИИ-отделом».</span></div>
+        </div>
+
+        <div class="form-card">
+          <h3>Заявка на установку</h3>
+          <p>Оставьте контакт — вернёмся с слотом на discovery-звонок.</p>
+          <form id="ctaForm" class="fields">
+            <div class="fields-2">
+              <div>
+                <label for="name">Ваше имя</label>
+                <input type="text" id="name" name="name" placeholder="Иван Петров" required>
+              </div>
+              <div>
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+              </div>
+            </div>
+            <div>
+              <label>Как удобнее связаться?</label>
+              <div class="messengers">
+                <button type="button" data-messenger="telegram" class="messenger-btn is-on">Telegram</button>
+                <button type="button" data-messenger="whatsapp" class="messenger-btn">WhatsApp</button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-blue" style="width:100%">Начать установку →</button>
+            <p class="form-note">Нажимая кнопку, вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>Родник · корпоративный мозг выручки</div>
+    <div style="display:flex;gap:1.25rem;flex-wrap:wrap">
+      <a href="manifesto.html">Манифест</a>
+      <a href="legal.html">Правовая информация</a>
+      <a href="privacy.html">Конфиденциальность</a>
+      <a href="https://luchpred.github.io/mayak-landing/passports.html" target="_blank" rel="noopener">Паспорта агентов</a>
+    </div>
+    <div>© 2026 Родник</div>
+  </div>
+</footer>
+
+<script>
+  const FORM_ENDPOINT = 'https://functions.yandexcloud.net/d4euambr211hbgppe3u6';
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href'); if (href === '#') return;
+      const t = document.querySelector(href);
+      if (t) {
+        e.preventDefault();
+        window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' });
+      }
+    });
+  });
+
+  const setActive = (btn) => {
+    document.querySelectorAll('.messenger-btn').forEach(b => b.classList.remove('is-on'));
+    btn.classList.add('is-on');
+  };
+  document.querySelectorAll('.messenger-btn').forEach(btn => btn.addEventListener('click', () => setActive(btn)));
+
+  const phone = document.getElementById('phone');
+  phone.addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '');
+    if (v.length) { if (v[0] === '8') v = '7' + v.slice(1); if (v[0] !== '7') v = '7' + v; }
+    let f = '';
+    if (v.length) f = '+7';
+    if (v.length > 1) f += ' (' + v.slice(1,4);
+    if (v.length > 4) f += ') ' + v.slice(4,7);
+    if (v.length > 7) f += '-' + v.slice(7,9);
+    if (v.length > 9) f += '-' + v.slice(9,11);
+    e.target.value = f;
+  });
+
+  const form = document.getElementById('ctaForm');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const button = form.querySelector('button[type="submit"]');
+    const original = button.innerHTML;
+    const name = form.querySelector('#name').value.trim();
+    const phoneVal = form.querySelector('#phone').value.trim();
+    const active = form.querySelector('.messenger-btn.is-on') || document.querySelector('.messenger-btn');
+    const messenger = active ? active.dataset.messenger : null;
+    button.innerHTML = 'Отправка…'; button.disabled = true; button.style.opacity = '.6';
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone: phoneVal, messenger })
+      });
+      if (!r.ok) throw new Error('err');
+      button.innerHTML = '✓ Заявка отправлена';
+      form.reset();
+      setActive(document.querySelector('.messenger-btn'));
+    } catch (err) {
+      button.innerHTML = 'Ошибка, попробуйте позже';
+    }
+    button.style.opacity = '1';
+    setTimeout(() => { button.innerHTML = original; button.disabled = false; }, 3000);
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
